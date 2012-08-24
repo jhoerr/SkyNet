@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace SkyNet.Model
 {
     public class File : Resource

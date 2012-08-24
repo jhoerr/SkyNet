@@ -45,12 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Album.cs" />
+    <Compile Include="Model\Audio.cs" />
     <Compile Include="Model\File.cs" />
     <Compile Include="Model\Collection.cs" />
     <Compile Include="Model\Folder.cs" />
     <Compile Include="Model\From.cs" />
+    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\Photo.cs" />
     <Compile Include="Model\Resource.cs" />
     <Compile Include="Model\SharedWith.cs" />
+    <Compile Include="Model\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
