@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SkyNet</id>
+    <version>1.0</version>
+    <authors>John Hoerr</authors>
+    <owners>John Hoerr, Indiana University</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/jhoerr/SkyNet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A client to access SkyDrive resources through its RESTful API. (http://msdn.microsoft.com/en-US/library/live/hh243648)</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2012 The Trustees of Indiana University (www.iu.edu)</copyright>
+    <tags>SkyDrive</tags>
+    <dependencies>
+      <dependency id="RestSharp" version="104.0" />
+    </dependencies>
+  </metadata>
+</package>

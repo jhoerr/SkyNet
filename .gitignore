@@ -4,3 +4,4 @@ _ReSharper.SkyNet
 packages
 *.suo
 *.user
+nuget
