@@ -1,0 +1,12 @@
+namespace SkyNet.Model
+{
+    public class Folder : File
+    {
+        public const string FolderType = "folder";
+
+        /// <summary>
+        /// The total number of items in the folder.
+        /// </summary>
+        public long Count { get; set; }
+    }
+}
