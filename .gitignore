@@ -1,0 +1,6 @@
+obj
+bin
+_ReSharper.SkyNet
+packages
+*.suo
+*.user
