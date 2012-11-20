@@ -133,7 +133,7 @@ namespace SkyNet.Client
 
             var request = ContentRequest(Method.POST, "{id}");
             request.AddUrlSegment("id", sourceId);
-            request.AddParameter("destination", newParentId);
+            request.AddBody(new{destination= newParentId});
             return request;
         }
 
@@ -144,7 +144,7 @@ namespace SkyNet.Client
 
             var request = ContentRequest(Method.PUT, "{id}");
             request.AddUrlSegment("id", id);
-            request.AddParameter("name", name);
+            request.AddBody(new {name});
             return request;
         }
 

@@ -75,28 +75,28 @@ namespace SkyNet.Client
             return result.Data;
         }
 
-        public void CreateFolder(string parentFolderId, string name, string description = null)
+        public Folder CreateFolder(string parentFolderId, string name, string description = null)
         {
-            ExecuteContentRequest(_requestGenerator.CreateFolder(parentFolderId, name, description));
+            return ExecuteContentRequest<Folder>(_requestGenerator.CreateFolder(parentFolderId, name, description));
         }
 
-        public void CreateFile(string parentFolderId, string name, string contentType)
+        public File CreateFile(string parentFolderId, string name, string contentType)
         {
-            Write(parentFolderId, new byte[0], name, contentType);
+            return Write(parentFolderId, new byte[0], name, contentType);
         }
 
-        public void Write(string parentFolderId, byte[] content, string name, string contentType)
+        public File Write(string parentFolderId, byte[] content, string name, string contentType)
         {
             using (var stream = new MemoryStream())
             {
                 Copy(content, stream);
-                Write(parentFolderId, stream, name, contentType);
+                return Write(parentFolderId, stream, name, contentType);
             }
         }
 
-        public void Write(string parentFolderId, Stream content, string name, string contentType)
+        public File Write(string parentFolderId, Stream content, string name, string contentType)
         {
-            ExecuteContentRequest(_requestGenerator.Write(parentFolderId, content, name, contentType));
+            return ExecuteContentRequest<File>(_requestGenerator.Write(parentFolderId, content, name, contentType));
         }
 
         public byte[] Read(string id, long startByte, long endByte)
@@ -105,9 +105,9 @@ namespace SkyNet.Client
             return response.RawBytes;
         }
 
-        public void Copy(string sourceId, string newParentId)
+        public File Copy(string sourceId, string newParentId)
         {
-            ExecuteContentRequestAsPost(_requestGenerator.Copy(sourceId, newParentId), "COPY");
+            return ExecuteContentRequestAsPost<File>(_requestGenerator.Copy(sourceId, newParentId), "COPY");
         }
 
         public void Rename(string id, string name)
@@ -115,9 +115,29 @@ namespace SkyNet.Client
             ExecuteContentRequest(_requestGenerator.Rename(id, name));
         }
 
+        public File RenameFile(string id, string name)
+        {
+            return ExecuteContentRequest<File>(_requestGenerator.Rename(id, name));
+        }
+
+        public Folder RenameFolder(string id, string name)
+        {
+            return ExecuteContentRequest<Folder>(_requestGenerator.Rename(id, name));
+        }
+
         public void Move(string id, string newParentId)
         {
             ExecuteContentRequestAsPost(_requestGenerator.Move(id, newParentId), "MOVE");
+        }
+
+        public File MoveFile(string id, string newParentId)
+        {
+            return ExecuteContentRequestAsPost<File>(_requestGenerator.Move(id, newParentId), "MOVE");
+        }
+
+        public Folder MoveFolder(string id, string newParentId)
+        {
+            return ExecuteContentRequestAsPost<Folder>(_requestGenerator.Move(id, newParentId), "MOVE");
         }
 
         public void Delete(string id)
@@ -147,6 +167,13 @@ namespace SkyNet.Client
         {
             var restResponse = _restContentClient.ExecuteAsPost(restRequest, method);
             CheckForError(restResponse);
+        }
+
+        private T ExecuteContentRequestAsPost<T>(IRestRequest restRequest, string method) where T:new()
+        {
+            var restResponse = _restContentClient.ExecuteAsPost<T>(restRequest, method);
+            CheckForError(restResponse);
+            return restResponse.Data;
         }
 
         private T ExecuteContentRequest<T>(IRestRequest restRequest) where T : new()
