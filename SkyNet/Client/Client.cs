@@ -75,9 +75,9 @@ namespace SkyNet.Client
             return result.Data;
         }
 
-        public void CreateFolder(string parentFolderId, string name)
+        public void CreateFolder(string parentFolderId, string name, string description = null)
         {
-            ExecuteContentRequest(_requestGenerator.CreateFolder(parentFolderId, name));
+            ExecuteContentRequest(_requestGenerator.CreateFolder(parentFolderId, name, description));
         }
 
         public void CreateFile(string parentFolderId, string name, string contentType)

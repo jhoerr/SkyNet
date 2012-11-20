@@ -73,15 +73,14 @@ namespace SkyNet.Client
             return request;
         }
 
-        public RestRequest CreateFolder(string parentFolderId, string name)
+        public RestRequest CreateFolder(string parentFolderId, string name, string description = null)
         {
             Require.Argument("parentFolderId", parentFolderId);
             Require.Argument("name", name);
 
             var request = ContentRequest(Method.POST, "{id}");
             request.AddUrlSegment("id", parentFolderId);
-            request.AddParameter("name", name);
-            request.AddParameter("description", string.Empty);
+            request.AddBody(new {name, description});
             return request;
         }
 

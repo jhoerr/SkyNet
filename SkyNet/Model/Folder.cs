@@ -2,6 +2,7 @@ namespace SkyNet.Model
 {
     public class Folder : File
     {
+        public const string Root = "/me/skydrive";
         public const string FolderType = "folder";
 
         /// <summary>
