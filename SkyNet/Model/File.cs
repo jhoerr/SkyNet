@@ -4,6 +4,8 @@ namespace SkyNet.Model
 {
     public class File
     {
+        public const string FileType = "file";
+
         /// <summary>
         /// An array container for File objects, if a collection of objects is returned.
         /// </summary>

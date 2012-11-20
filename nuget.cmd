@@ -1,6 +1,6 @@
 %windir%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe SkyNet.sln /t:Clean,Rebuild /p:Configuration=Release /fileLogger
 
-del nuget\* /F /Q
+rd /s /q nuget
 
 mkdir nuget\lib\net40\
 
