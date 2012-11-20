@@ -32,5 +32,19 @@ namespace SkyNet.Tests.Client
             contents = _client.GetContents(Folder.Root);
             Assert.That(contents.Any(f => f.Id.Equals(createdFolder.Id)), Is.False);
         }
+
+        [Test]
+        public void CreateDeleteFile()
+        {
+            _client.CreateFile(Folder.Root, "testFile", "text/plain");
+            var contents = _client.GetContents(Folder.Root);
+            var createdFile = contents.SingleOrDefault(f => f.Name.Equals("testFile"));
+            Assert.That(createdFile, Is.Not.Null);
+            Assert.That(createdFile.Name, Is.EqualTo("testFile"));
+            _client.Delete(createdFile.Id);
+            contents = _client.GetContents(Folder.Root);
+            Assert.That(contents.Any(f => f.Id.Equals(createdFile.Id)), Is.False);
+        }
+
     }
 }
