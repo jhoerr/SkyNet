@@ -87,9 +87,8 @@ namespace SkyNet.Client
 
         public File Write(string parentFolderId, byte[] content, string name, string contentType)
         {
-            using (var stream = new MemoryStream())
+            using (var stream = new MemoryStream(content))
             {
-                Copy(content, stream);
                 return Write(parentFolderId, stream, name, contentType);
             }
         }

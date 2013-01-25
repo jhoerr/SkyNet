@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
@@ -26,21 +27,52 @@ namespace SkyNet.Tests.Client
             Assert.That(createdFolder, Is.Not.Null);
             Assert.That(createdFolder.Name, Is.EqualTo("theFolder"));
             Assert.That(createdFolder.Description, Is.EqualTo("the description"));
-            _client.Delete(createdFolder.Id);
-            var contents = _client.GetContents(Folder.Root);
-            Assert.That(contents.Any(f => f.Id.Equals(createdFolder.Id)), Is.False);
+            Cleanup(createdFolder.Id);
         }
 
         [Test]
         public void CreateDeleteFile()
         {
-            var createdFile = _client.CreateFile(Folder.Root, "testFolder", "text/plain");
+            var createdFile = _client.CreateFile(Folder.Root, "testFile", "text/plain");
             Assert.That(createdFile, Is.Not.Null);
-            Assert.That(createdFile.Name, Is.EqualTo("testFolder"));
-            _client.Delete(createdFile.Id);
-            var contents = _client.GetContents(Folder.Root);
-            Assert.That(contents.Any(f => f.Id.Equals(createdFile.Id)), Is.False);
+            Assert.That(createdFile.Name, Is.EqualTo("testFile"));
+            Cleanup(createdFile.Id);
         }
+
+        [Test]
+        public void WriteNewFileStream()
+        {
+            var content = new byte[] {1, 2, 3};
+            using (var stream = new MemoryStream(content))
+            {
+                var writtenFile = _client.Write(Folder.Root, stream, "testFile", "text/plain");
+                var actual = _client.Get(writtenFile.Id);
+                Assert.That(actual, Is.Not.Null);
+                Assert.That(actual.Name, Is.EqualTo("testFile"));
+                Assert.That(actual.Size, Is.EqualTo(content.Length));
+                Cleanup(actual.Id);
+            }
+        }
+
+        [Test]
+        public void WriteNewFileBytes()
+        {
+            var content = new byte[] { 1, 2, 3 };
+            var writtenFile = _client.Write(Folder.Root, content, "testFile", "text/plain");
+            var actual = _client.Get(writtenFile.Id);
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual.Name, Is.EqualTo("testFile"));
+            Assert.That(actual.Size, Is.EqualTo(content.Length));
+            Cleanup(actual.Id);
+        }
+
+        private void Cleanup(string id)
+        {
+            _client.Delete(id);
+            var contents = _client.GetContents(Folder.Root);
+            Assert.That(contents.Any(f => f.Id.Equals(id)), Is.False);
+        }
+
 
         [Test]
         public void CopyFile()
