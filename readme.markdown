@@ -20,10 +20,13 @@ You can contact me on twitter [@johnhoerr](https://twitter.com/johnhoerr).
 
 ## Release Notes
 
-+**1.3** Added support for the /quota endpoint.
-+**1.2** Fixed problematic HTTP response handling.  Performance improvements.
-+**1.1** Fixed folder creation bug
-+**1.0** Initial release.
+**1.3** Added support for the /quota endpoint.
+
+**1.2** Fixed problematic HTTP response handling.  Performance improvements.
+
+**1.1** Fixed folder creation bug
+
+**1.0** Initial release.
 
 ## Usage
 
