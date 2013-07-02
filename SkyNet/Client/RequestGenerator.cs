@@ -148,6 +148,13 @@ namespace SkyNet.Client
             return request;
         }
 
+        public RestRequest Quota()
+        {
+            var request = ContentRequest(Method.GET, "{root}/quota");
+            request.AddUrlSegment("root", SkyDriveRootFolder);
+            return request;
+        }
+
         private static string Encode(string name)
         {
             return UTF8Encoder.GetString(UTF8Encoder.GetBytes(name));

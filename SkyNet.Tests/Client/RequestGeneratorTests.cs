@@ -70,6 +70,14 @@ namespace SkyNet.Tests.Client
             return GetAbsoluteUri(restRequest);
         }
 
+        [TestCase(Result = "http://localhost/me/skydrive/quota")]
+        public string Quota()
+        {
+            var restRequest = _requestGenerator.Quota();
+            AssertHasMethod(restRequest, Method.GET);
+            return GetAbsoluteUri(restRequest);
+        }
+
         [TestCase(null, Result = "http://localhost/me/skydrive/files")]
         [TestCase("", Result = "http://localhost/me/skydrive/files")]
         [TestCase("123", Result = "http://localhost/123/files")]

@@ -144,6 +144,11 @@ namespace SkyNet.Client
             ExecuteContentRequest(_requestGenerator.Delete(id));
         }
 
+        public UserQuota Quota()
+        {
+            return ExecuteContentRequest<UserQuota>(_requestGenerator.Quota());
+        }
+
         private void SetUserToken(UserToken token)
         {
             _refreshToken = token.Refresh_Token;

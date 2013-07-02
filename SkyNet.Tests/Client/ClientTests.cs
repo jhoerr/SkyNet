@@ -165,6 +165,13 @@ namespace SkyNet.Tests.Client
             }
         }
 
+        [Test]
+        public void Quota()
+        {
+            UserQuota userQuota = _client.Quota();
+            Assert.That(userQuota.Quota, Is.Not.EqualTo(0));
+            Assert.That(userQuota.Available, Is.Not.EqualTo(0));
+        }
 
         [Test, Ignore("run this if a test fails and you need to get rid of the theFolder that it created")]
         public void DeleteTestFolder()

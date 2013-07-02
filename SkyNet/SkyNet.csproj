@@ -74,6 +74,7 @@
     <Compile Include="Util\EnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\UserQuota.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
