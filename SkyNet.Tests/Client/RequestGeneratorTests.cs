@@ -172,9 +172,16 @@ namespace SkyNet.Tests.Client
         private static void AssertHasParameterOfType(RestRequest restRequest, string key, string value, ParameterType parameterType)
         {
             var parameter = restRequest.Parameters.SingleOrDefault(p => p.Name.Equals(key));
-            Assert.That(parameter, Is.Not.Null);
-            Assert.That(parameter.Value, Is.EqualTo(value));
-            Assert.That(parameter.Type, Is.EqualTo(parameterType));
+            if (parameter != null)
+            {
+                Assert.That(parameter.Value, Is.EqualTo(value));
+                Assert.That(parameter.Type, Is.EqualTo(parameterType));
+            }
+            else
+            {
+                var body = restRequest.Parameters.SingleOrDefault(p => p.Type.Equals(ParameterType.RequestBody) && p.Value.ToString().Contains(key) && p.Value.ToString().Contains(value));
+                Assert.That(body, Is.Not.Null);
+            }
         }
 
         private void AssertHasFileWithName(RestRequest restRequest, string name)
