@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using SkyNet.Model;
+using File = SkyNet.Model.File;
 
 namespace SkyNet.Tests.Client
 {
@@ -23,7 +24,7 @@ namespace SkyNet.Tests.Client
         [Test]
         public void CreateDeleteFolder()
         {
-            var createdFolder = _client.CreateFolder(Folder.Root, "theFolder", "the description");
+            Folder createdFolder = _client.CreateFolder(Folder.Root, "theFolder", "the description");
             Assert.That(createdFolder, Is.Not.Null);
             Assert.That(createdFolder.Name, Is.EqualTo("theFolder"));
             Assert.That(createdFolder.Description, Is.EqualTo("the description"));
@@ -58,8 +59,8 @@ namespace SkyNet.Tests.Client
         public void WriteNewFileBytes()
         {
             var content = new byte[] { 1, 2, 3 };
-            var writtenFile = _client.Write(Folder.Root, content, "testFile", "text/plain");
-            var actual = _client.Get(writtenFile.Id);
+            File writtenFile = _client.Write(Folder.Root, content, "testFile", "text/plain");
+            File actual = _client.Get(writtenFile.Id);
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Name, Is.EqualTo("testFile"));
             Assert.That(actual.Size, Is.EqualTo(content.Length));
@@ -69,7 +70,7 @@ namespace SkyNet.Tests.Client
         private void Cleanup(string id)
         {
             _client.Delete(id);
-            var contents = _client.GetContents(Folder.Root);
+            IEnumerable<File> contents = _client.GetContents(Folder.Root);
             Assert.That(contents.Any(f => f.Id.Equals(id)), Is.False);
         }
 
