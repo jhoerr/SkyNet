@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SkyNet</id>
-    <version>1.3</version>
+    <version>1.3.1</version>
     <authors>John Hoerr</authors>
     <owners>John Hoerr, Indiana University</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -12,7 +12,7 @@
     <copyright>Copyright 2013 The Trustees of Indiana University (www.iu.edu)</copyright>
     <tags>SkyDrive</tags>
     <dependencies>
-      <dependency id="RestSharp" version="104.0" />
+      <dependency id="RestSharp" version="104.1" />
     </dependencies>
   </metadata>
 </package>
