@@ -16,7 +16,6 @@ namespace SkyNet.Client
         private const string OAuthResource = "oauth20_{verb}.srf";
         private const string AuthorizeVerb = "authorize";
         private const string TokenVerb = "token";
-        private const string SkyDriveRootFolder = "me/skydrive";
 
         public RestRequest Authorize(string clientId, string callbackUrl, IEnumerable<Scope> requestedScopes)
         {
@@ -55,21 +54,31 @@ namespace SkyNet.Client
 
         public RestRequest Get(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            RestRequest request;
+            if (string.IsNullOrWhiteSpace(id))
             {
-                return ContentRequest(Method.GET, SkyDriveRootFolder);
+                request = ContentRequest(Method.GET, "me/skydrive");
             }
-
-            var request = ContentRequest(Method.GET, "{id}");
-            request.AddUrlSegment("id", id);
+            else
+            {
+                request = ContentRequest(Method.GET, "{id}");
+                request.AddUrlSegment("id", id);
+            }
             return request;
         }
 
         public RestRequest GetContents(string id)
         {
-            var path = string.IsNullOrEmpty(id) ? SkyDriveRootFolder : id;
-            var request = ContentRequest(Method.GET, "{id}/files");
-            request.AddUrlSegment("id", path);
+            RestRequest request;
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                request = ContentRequest(Method.GET, "me/skydrive/files");
+            }
+            else
+            {
+                request = ContentRequest(Method.GET, "{id}/files");
+                request.AddUrlSegment("id", id);
+            }
             return request;
         }
 
@@ -150,8 +159,7 @@ namespace SkyNet.Client
 
         public RestRequest Quota()
         {
-            var request = ContentRequest(Method.GET, "{root}/quota");
-            request.AddUrlSegment("root", SkyDriveRootFolder);
+            var request = ContentRequest(Method.GET, "me/skydrive/quota");
             return request;
         }
 

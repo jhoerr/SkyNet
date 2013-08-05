@@ -67,6 +67,19 @@ namespace SkyNet.Tests.Client
             Cleanup(actual.Id);
         }
 
+        [Test]
+        public void ReadFileBytes()
+        {
+            var content = new byte[] { 1, 2, 3 };
+            File writtenFile = _client.Write(Folder.Root, content, "testFile", "text/plain");
+            File actual = _client.Get(writtenFile.Id);
+            var bytes = _client.Read(writtenFile.Id, 0, writtenFile.Size - 1);
+            Assert.That(bytes, Is.Not.Null);
+            Assert.That(bytes.Length, Is.EqualTo(content.Length));
+            Assert.That(bytes, Is.EqualTo(content));
+            Cleanup(actual.Id);
+        }
+
         private void Cleanup(string id)
         {
             _client.Delete(id);
