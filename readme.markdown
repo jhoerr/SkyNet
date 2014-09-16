@@ -1,5 +1,9 @@
 # SkyNet
 
+# Deprecated
+
+The official [LiveSDK for Windows](https://github.com/liveservices/LiveSDK-for-Windows) now supports ASP.Net and Windows Desktop apps. Please migrate to that SDK as appropriate.
+
 ## About
 
 SkyNet is a C# client for the Microsoft SkyDrive service through its RESTful API.  Its focus is on access to and modification of user resources -- documents, files, etc. -- and not manipulation of albums or social features such as tags and comments.
@@ -12,7 +16,7 @@ SkyNet is available as a [NuGet package](http://nuget.org/packages/SkyNet/).
 
 ## License & Copyright
 
-SkyNet is Copyright 2013 The Trustees of [Indiana University](http://www.iu.edu) and is released under the [MIT License](http://opensource.org/licenses/MIT).
+SkyNet is Copyright 2013-2014 The Trustees of [Indiana University](http://www.iu.edu) and is released under the [MIT License](http://opensource.org/licenses/MIT).
 
 ## Contact
 
